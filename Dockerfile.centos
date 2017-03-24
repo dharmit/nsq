@@ -1,0 +1,16 @@
+FROM registry.centos.org/centos/centos
+
+MAINTAINER Dharmit Shah <dshah@redhat.com>
+
+EXPOSE 4150 4151 4160 4161 4170 4171
+
+VOLUME /data
+VOLUME /etc/ssl/certs
+
+ADD install.sh /install.sh
+
+RUN yum -y install wget && \
+    sh /install.sh && \
+    ln -s /usr/local/bin/*nsq* / && \
+    ln -s /usr/local/bin/*nsq* /bin/ && \
+    rm -f /install.sh
